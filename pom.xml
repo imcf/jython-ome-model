@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>org.scijava</groupId>
+		<artifactId>pom-scijava</artifactId>
+		<version>30.0.0</version>
+		<relativePath />
+	</parent>
+
+	<groupId>ch.unibas.biozentrum.imcf</groupId>
+	<artifactId>jython-ome-model</artifactId>
+	<version>6.2.2-SNAPSHOT</version>
+
+	<name>OME Model for ImageJ Jython</name>
+	<description>Python functions for dealing with OME metadata.</description>
+	<url>https://github.com/ome/ome-model</url>
+	<inceptionYear>2013</inceptionYear>
+	<organization>
+		<name>Open Microscopy Environment</name>
+		<url>https://www.openmicroscopy.org/</url>
+	</organization>
+	<licenses>
+		<license>
+			<name>OME License</name>
+			<url>https://github.com/ome/ome-model/blob/master/LICENSE.md</url>
+			<distribution>repo</distribution>
+		</license>
+	</licenses>
+
+	<build>
+		<!-- Tell maven to call git for initializing the required submodule
+		before packaging the jar, otherwise we don't have anything to be put
+		into the package. -->
+		<plugins>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>exec-maven-plugin</artifactId>
+				<version>1.6.0</version>
+				<executions>
+					<execution>
+						<id>git submodule update</id>
+						<phase>initialize</phase>
+						<goals>
+							<goal>exec</goal>
+						</goals>
+						<configuration>
+							<executable>git</executable>
+							<arguments>
+								<argument>submodule</argument>
+								<argument>update</argument>
+								<argument>--init</argument>
+								<argument>--recursive</argument>
+							</arguments>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+
+		<!-- Tell maven where to find the files to be packaged. -->
+		<resources>
+			<!-- Add a "local" directory that can be used to shadow upstream files or
+			include additional files in the package. -->
+			<resource>
+				<directory>local</directory>
+				<includes>
+					<include>ome_model/**.py</include>
+				</includes>
+			</resource>
+			<resource>
+				<directory>upstream</directory>
+				<includes>
+					<include>ome_model/**.py</include>
+					<include>**/LICENSE.md</include>
+					<include>**/README.md</include>
+				</includes>
+			</resource>
+		</resources>
+	</build>
+
+	<developers>
+		<developer>
+			<id>Ehrenfeu</id>
+			<name>Niko Ehrenfeuchter</name>
+			<url>https://imagej.net/User:Ehrenfeu</url>
+			<roles>
+				<role>developer</role>
+			</roles>
+		</developer>
+	</developers>
+	<contributors>
+		<!--
+		NB: Need at least one element to override the parent.
+		See: https://issues.apache.org/jira/browse/MNG-5220
+		-->
+		<contributor>
+			<name>None</name>
+		</contributor>
+	</contributors>
+
+	<mailingLists>
+		<mailingList>
+			<name>Image.sc Forum</name>
+			<archive>https://forum.image.sc/</archive>
+		</mailingList>
+	</mailingLists>
+
+	<scm>
+		<connection>scm:git:git://github.com/imcf/jython-ome-model</connection>
+		<developerConnection>scm:git:git@github.com:imcf/jython-ome-model</developerConnection>
+		<tag>HEAD</tag>
+		<url>https://github.com/imcf/jython-ome-model</url>
+	</scm>
+	<issueManagement>
+		<system>GitHub Issues</system>
+		<url>https://github.com/imcf/jython-ome-model/issues</url>
+	</issueManagement>
+	<ciManagement>
+		<system>Travis CI</system>
+		<url>https://travis-ci.com/imcf/jython-ome-model</url>
+	</ciManagement>
+
+	<properties>
+		<license.licenseName>OME License</license.licenseName>
+		<license.copyrightOwners>Open Microscopy Environment</license.copyrightOwners>
+		<maven.source.skip>true</maven.source.skip>
+
+		<!-- NB: Deploy releases to the SciJava Maven repository. -->
+		<releaseProfiles>deploy-to-scijava</releaseProfiles>
+	</properties>
+
+	<repositories>
+		<repository>
+			<id>scijava.public</id>
+			<url>https://maven.scijava.org/content/groups/public</url>
+		</repository>
+	</repositories>
+
+	<dependencies>
+		<dependency>
+			<groupId>net.imagej</groupId>
+			<artifactId>ij</artifactId>
+			<scope>provided</scope>
+		</dependency>
+	</dependencies>
+</project>
