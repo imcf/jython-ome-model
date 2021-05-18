@@ -10,9 +10,9 @@ A mavenized package of the [Open Microscopy Environment][gh_ome]'s
 :construction: TODO! :construction:
 
 ```python
-import jython-ome-model as ome_model
+from ome_model.experimental import Plate, Image, create_companion
 
-# do something
+
 ```
 
 ## Packaging
