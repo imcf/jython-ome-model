@@ -11,7 +11,7 @@
 
 	<groupId>ch.unibas.biozentrum.imcf</groupId>
 	<artifactId>jython-ome-model</artifactId>
-	<version>6.2.2-SNAPSHOT</version>
+	<version>6.2.3-SNAPSHOT</version>
 
 	<name>OME Model for ImageJ Jython</name>
 	<description>Python functions for dealing with OME metadata.</description>
